@@ -1,23 +1,24 @@
 let num = []
+let num_test = [6,10,2,3,4,5,1,7,9,8]
 let num_select_triple = []
 let num_select_double = []
 let ocorrencia = [];
-let valores_selecionados = [0, 0, 0, 0, 0];
+let valores_selecionados = [0, 0, 0, 0];
 let valores_multiplicacao = [0, 0, 0, 0, 0];
 let valores_divisao = [0, 0, 0, 0, 0];
-let posicao_m_x = [470, 570, 650, 410, 520, 650, 750, 450, 600, 750];
-let posicao_m_y = [100, 130, 90, 200, 230, 200, 180, 300, 280, 290];
+let posicao_m_x = [550, 650, 730, 490, 600, 750, 850, 540, 700, 840];
+let posicao_m_y = [90, 120, 80, 190, 220, 190, 170, 290, 270, 280];
 let posicao_m_x_2 = [10, 50, 130, 140, 250, 250, 390, 350, 490, 440];
 let posicao_m_y_2 = [450, 520, 460, 530, 450, 530, 455, 530, 460, 530];
 let cronometro = [0, 0];
 
-let fase = 0,fase_intro = 0;
-let vidas = 3, config = 0, control_34 = 0, control_view_5 = 0;
-let img_logo,img_sound,img_nosound,img_bk_perdeu,img_bk_final, img_bk, img_m_r, img_pie, img_bk_fase_2, img_bk_fase_3, img_bk_fase_4, img_bk_intro_1, img_bk_intro_2, img_bk_intro_fase_3, img_bk_intro_3, img_bk_intro_4, img_bk_menu;
-let numero_objetivo, valores_selecionados_resultado, numero_de_tortas, dividendo=0,status_sound_fundo=1;
-let intervalId;
+let fase = 0, fase_intro = 0, fase_intro_etapa=0;
+let vidas = 3, config = 0, control_34 = 0, control_view_5 = 0;numero_objetivo_us=0;
+let img_porf,img_dev,img_bk_inst,img_bk_credt,img_logo,img_sound,img_nosound,img_bk_perdeu,img_bk_final, img_bk, img_m_r, img_pie, img_bk_fase_2, img_bk_fase_3, img_bk_fase_4, img_bk_intro_1, img_bk_intro_2, img_bk_intro_fase_3, img_bk_intro_3, img_bk_intro_4, img_bk_menu,img_boneco_1,img_boneco_2,img_boneco_3,img_boneco_1_i,img_boneco_2_i,img_boneco_5,img_boneco_6;
+let numero_us=0,numero_objetivo, valores_selecionados_resultado, numero_de_tortas, dividendo=0;
+let intervalId,status_cont=1,time=0;
 let canvas;
-let sound_fundo,sound_vence,sound_perdeu,sound_acertou,sound_errou;
+let sound_fundo,sound_vence,sound_perdeu,sound_acertou,sound_errou,status_sound_fundo=1;
 
 function preload() {
 	sound_fundo = loadSound('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/fundo.mp3');
@@ -27,13 +28,15 @@ function preload() {
 	sound_errou = loadSound('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/errado.mp3');
 
 	img_bk = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/bk.jpg');
-	img_bk_fase_2 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/bk_fase3.jpg');
-	img_bk_fase_3 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/bk_fase_3.jpg');
+	img_bk_fase_2 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/bk_fase_2.jpg');
+	img_bk_fase_3 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/bk_fase_3_1.jpg');
 	img_bk_fase_4 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/bk_fase_4.jpg');
 
 	img_logo = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/logo.png');
 	img_bk_menu = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/menu.jpg');
 	img_bk_intro_1 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/intro_1.jpg');
+	img_bk_inst = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/b5.jpg');
+	img_bk_credt = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/b7.jpg');
 	img_bk_intro_2 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/intro_2.jpg');
 	img_bk_intro_3 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/intro_3.jpg');
 	img_bk_intro_4 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/intro_4.jpg');
@@ -46,6 +49,21 @@ function preload() {
 	img_pie = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/pie_of_apple.png');
 	img_sound = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/icon_sound.png'); 
 	img_nosound = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/icon_nosound.png'); 
+	
+	img_boneco_1=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_1.png');
+	img_boneco_2=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_2.png');
+	img_boneco_5=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_5.png');
+	img_boneco_6=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_6.png');
+	img_boneco_5_i=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_5_i.png');
+	img_boneco_6_i=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_6_i.png');
+	img_boneco_1_i=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_1_i.png');
+	img_boneco_2_i=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_2_i.png');
+	img_porf=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/prof.jpg');
+	img_dev=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/dev.jpg');
+	//img_boneco_3=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_3.png');
+	//img_boneco_4=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/m_red.png');
+	//img_boneco_5=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/m_red.png');
+	//img_boneco_6=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/m_red.png');
 }
 
 function setup() {
@@ -73,16 +91,52 @@ function draw() {
 function mouseClicked() {
 	if (fase == 0) {
 		if (fase_intro == 0) {
-			if ((mouseX > 350 && mouseX < 650) && (mouseY > 360 && mouseY < 435)) {
+			if ((mouseX > 520 && mouseX < 520+300) && (mouseY > 130 && mouseY < 130+75)) {
 				next_fase_intro();
-			} else if ((mouseX > 650 && mouseX < 850) && (mouseY > 325 && mouseY < 400)) {
 			}
-		} else {
+			if ((mouseX > 520 && mouseX < 520+300) && (mouseY > 220 && mouseY < 220+75)) {
+				console.log("Intrução");
+				fase=103;
+			} 
+			if ((mouseX > 520 && mouseX < 520+300) && (mouseY > 310 && mouseY < 310+75)) {
+				console.log("créditos");
+				fase=104;
+			} 
+
+		}else if (fase_intro == 1) {
 			if ((mouseX > 740 && mouseX < 940) && (mouseY > 520 && mouseY < 595)) {
 				next_fase_intro();
 			}
+		}else{
+			if(fase_intro_etapa==0){
+				if ((mouseX > posicao_m_x[2] && mouseX < (posicao_m_x[2] + 60)) && (mouseY > posicao_m_y[2] && mouseY < (posicao_m_y[2] + 65))) {
+					fase_intro_etapa=1;
+					numero_selecionado(2);
+				}
+			}else if(fase_intro_etapa==1){
+				if ((mouseX > posicao_m_x[7] && mouseX < (posicao_m_x[7] + 60)) && (mouseY > posicao_m_y[7] && mouseY < (posicao_m_y[7] + 65))) {
+					fase_intro_etapa=2;
+					numero_selecionado(7);
+				}
+				
+			}else if(fase_intro_etapa==2){
+				if ((mouseX > posicao_m_x[4] && mouseX < (posicao_m_x[4] + 60)) && (mouseY > posicao_m_y[4] && mouseY < (posicao_m_y[4] + 65))) {
+					fase_intro_etapa=3
+					numero_selecionado(4);
+				}
+
+			}else if(fase_intro_etapa==3){
+				if ((mouseX > 110 && mouseX < (110 + 60)) && (mouseY > 510 && mouseY < 510 + 65)) {
+					fase_intro_etapa=4;
+					numero_desselecionado(1);
+				}
+			}else if(fase_intro_etapa==4){
+				if ((mouseX > 740 && mouseX < 940) && (mouseY > 520 && mouseY < 595)){
+					next_fase_intro();
+				}
+			}
 		}
-	} else if (fase >= 1 && fase <= 2) {
+	} else if (fase >= 1 && fase <= 3 && status_cont==1) {
 		if ((mouseX > posicao_m_x[0] && mouseX < (posicao_m_x[0] + 60)) && (mouseY > posicao_m_y[0] && mouseY < (posicao_m_y[0] + 65))) {
 			numero_selecionado(0);
 		} else if ((mouseX > posicao_m_x[1] && mouseX < (posicao_m_x[1] + 60)) && (mouseY > posicao_m_y[1] && mouseY < (posicao_m_y[1] + 65))) {
@@ -114,7 +168,7 @@ function mouseClicked() {
 		} else if ((mouseX > 380 && mouseX < (380 + 60)) && (mouseY > 510 && mouseY < 510 + 65)) {
 			numero_desselecionado(4);
 		}
-	} else if (fase >= 3 && fase <= 4) {
+	} else if (fase >= 4 && fase <= 6 && status_cont==1) {
 		if ((mouseX > posicao_m_x_2[0] && mouseX < (posicao_m_x_2[0] + 60)) && (mouseY > posicao_m_y_2[0] && mouseY < (posicao_m_y_2[0] + 65))) {
 			numero_selecionado(0);
 		} else if ((mouseX > posicao_m_x_2[1] && mouseX < (posicao_m_x_2[1] + 60)) && (mouseY > posicao_m_y_2[1] && mouseY < (posicao_m_y_2[1] + 65))) {
@@ -146,12 +200,12 @@ function mouseClicked() {
 		} else if ((mouseX > 510 && mouseX < (510 + 60)) && (mouseY > 205 && mouseY < 205 + 65)) {
 			numero_desselecionado(4);
 		}
-	} else if (fase == 5 && control_view_5 == 0) {
-		if ((mouseX > 770 && mouseX < (770 + 200)) && (mouseY > 480 && mouseY < 480 + 75)) {
+	} else if (fase == 7 && control_view_5 == 0 && status_cont==1) {
+		if ((mouseX > 740 && mouseX < 940) && (mouseY > 520 && mouseY < 595)) {
 			control_view_5 = 1;
 			contagem_regreciva(1);
 		}
-	} else if (fase >= 5 && fase <= 6 && control_view_5 == 1) {
+	} else if (fase >= 7 && fase <= 9 && control_view_5 == 1 && status_cont==1) {
 		if ((mouseX > 640 && mouseX < (640 + 130)) && (mouseY > 280 && mouseY < 280 + 50)) {
 			numero_selecionado(valores_multiplicacao[0]);
 		} else if ((mouseX > 640 && mouseX < (640 + 130)) && (mouseY > 340 && mouseY < 340 + 50)) {
@@ -163,7 +217,7 @@ function mouseClicked() {
 		} else if ((mouseX > 640 && mouseX < (640 + 130)) && (mouseY > 520 && mouseY < 520 + 50)) {
 			numero_selecionado(valores_multiplicacao[4]);
 		}
-	} else if (fase >= 7 && fase <=8) {
+	} else if (fase >= 10 && fase <=12 && status_cont==1) {
 		if ((mouseX > 285 && mouseX < (285 + 110)) && (mouseY > 275 && mouseY < 275 + 125)) {
 			numero_selecionado(valores_divisao[0]);
 		} else if ((mouseX > 420 && mouseX < (420 + 110)) && (mouseY > 275 && mouseY < 275 + 125)) {
@@ -175,10 +229,14 @@ function mouseClicked() {
 		} else if ((mouseX > 825 && mouseX < (825 + 110)) && (mouseY > 275 && mouseY < 275 + 125)) {
 			numero_selecionado(valores_divisao[4]);
 		}	
-	}else if(fase==9 || fase ==101){
+	}else if(fase==102 || fase ==101){
 		if ((mouseX > 450 && mouseX < (450 + 250)) && (mouseY > 350 && mouseY < 350 + 50)) {
 			recomeçar();
 			sound_fundo.play();
+		}
+	}else if(fase==103 || fase==104){
+		if ((mouseX > 20 && mouseX < 20+130) && (mouseY >10 && mouseY < 10 + 50)) {
+			fase=0;
 		}
 	}
 	if ((mouseX > 945 && mouseX < (995)) && (mouseY > 560 && mouseY < 595)) {
@@ -190,27 +248,43 @@ function mouseClicked() {
 			status_sound_fundo=1;
 		}
 	}
+	if(fase!=102 && fase!=101){
+		if((mouseX > 945 && mouseX < (995)) && (mouseY > 520 && mouseY < 555)) {
+			if(status_cont==1){
+				contagem_regreciva(2);
+				status_cont=0;
+			}else{
+				contagem_regreciva(1);
+				status_cont=1;
+			}
+		}
+	}
 }
 function numero_selecionado(posi) {
-	if (fase >= 1 && fase <= 4) {
+	if (fase >= 0 && fase <= 6) {
 		if (valores_selecionados.indexOf(0) > -1) {
-			for (let index = 0; index < valores_selecionados.length; index++) {
+			for (let index = 0; index < 4; index++) {
 				if (valores_selecionados[index] == 0) {
-					valores_selecionados[index] = num[posi];
-					num[posi] = 0;
+					if(fase==0){
+						valores_selecionados[index] = posi;
+						num_test[posi] = 0;
+					}else{
+						valores_selecionados[index] = num[posi];
+						num[posi] = 0;
+					}
 					break;
 				}
 			}
 		} else {
 			console.log("cheio");
 		}
-	} else if (fase >= 5 && fase <= 6) {
+	} else if (fase >= 7 && fase <= 9) {
 		if (posi == (numero_objetivo / numero_de_tortas)) {
 			next_fase();
 		} else {
 			perdeu_vida();
 		}
-	} else if (fase >= 7 && fase <= 8) {
+	} else if (fase >= 10 && fase <= 12) {
 		if (posi == (numero_objetivo / dividendo)) {
 			next_fase();
 		} else {
@@ -219,29 +293,48 @@ function numero_selecionado(posi) {
 	}
 }
 function numero_desselecionado(posi) {
-	if (valores_selecionados[posi] != 0) {
-		for (let index = 0; index < num.length; index++) {
-			if (num[index] == 0) {
-				num[index] = valores_selecionados[posi];
-				valores_selecionados[posi] = 0;
-				break;
+	if(fase>=1){
+		if (valores_selecionados[posi] != 0) {
+			for (let index = 0; index < num.length; index++) {
+				if (num[index] == 0) {
+					num[index] = valores_selecionados[posi];
+					valores_selecionados[posi] = 0;
+					break;
+				}
+			}
+		}
+	}else if(fase==0){
+		if (valores_selecionados[posi] != 0) {
+			for (let index = 0; index < num_test.length; index++) {
+				if (num_test[index] == 0) {
+					num_test[index] = valores_selecionados[posi];
+					valores_selecionados[posi] = 0;
+					break;
+				}
 			}
 		}
 	}
+	
 }
 function contagem_regreciva(mode) {
-	var i = 89;
 	if (mode == 1) {
-		cronometro[0] = parseInt(90 / 60);
-		cronometro[1] = 90 % 60;
+		if(time<=0){
+			time = 89;
+			cronometro[0] = parseInt(90 / 60);
+			cronometro[1] = 90 % 60;
+		}else{
+			cronometro[0] = parseInt(time / 60);
+			cronometro[1] = time % 60;
+		}
+		
 		intervalId = setInterval(function () {
-			if (i-- < 1) {
+			if (time-- < 1) {
 				cronometro[0] = 0;
 				cronometro[1] = 0;
 				perdeu_vida();
 			} else {
-				cronometro[0] = parseInt(i / 60);
-				cronometro[1] = i % 60;
+				cronometro[0] = parseInt(time / 60);
+				cronometro[1] = time % 60;
 			};
 		}, 1000);
 	} else if (mode == 2) {
@@ -249,27 +342,31 @@ function contagem_regreciva(mode) {
 	}
 }
 function next_fase() {
-	sound_acertou.play();
-	recomeçar();
-	fase = fase + 1;
-	config = 0;
-	if(fase==9){
+	if(fase==12){
+		fase=102;
 		sound_fundo.stop();
 		sound_venceu.play();
 		contagem_regreciva(2);	
+	}else{
+		sound_acertou.play();
+		recomeçar();
+		fase = fase + 1;
+		config = 0;
 	}
+	
+	
 }
 function next_fase_intro() {
-	if (fase_intro >3) {
+	if (fase_intro >=2) {
+		recomeçar();
 		fase = 1;
-		config = 0;
-		contagem_regreciva(1);
+		config = 0;	
 	} else {
 		fase_intro = fase_intro + 1;
 	}
 }
 function verificacao_fase() {
-	if(fase>=1 && fase<=4){
+	if(fase>=1 && fase<=6){
 		if (valores_selecionados_resultado > numero_objetivo) {
 			perdeu_vida();
 		} else if (valores_selecionados_resultado == numero_objetivo) {
@@ -279,8 +376,13 @@ function verificacao_fase() {
 }
 function recomeçar() {
 	contagem_regreciva(2);
+	time=0;
 	contagem_regreciva(1);
-	if (fase >= 1 && fase <= 4) {
+	if(fase==0){
+		for (let i = 0; i < valores_selecionados.length; i++) {
+			valores_selecionados[i]=0
+		}
+	}else if (fase >= 0 && fase <= 6) {
 		for (let index = 0; index < valores_selecionados.length; index++) {
 			if (valores_selecionados[index] != 0) {
 				for (let i = 0; i < num.length; i++) {
@@ -291,11 +393,16 @@ function recomeçar() {
 				}
 			}
 		}
-	}else if(fase==9 || fase==101){
+	}else if(fase==102 || fase==101){
 		contagem_regreciva(2);
 		vidas=3;
 		fase=0;
+		time=0;
 		fase_intro=0
+		fase_intro_etapa=0
+		num_test[2]=2;
+		num_test[4]=4;
+		num_test[7]=7;
 		valores_selecionados_resultado=0;
 		numero_objetivo=0;
 		for (let index = 0; index < valores_selecionados.length; index++) {
@@ -304,9 +411,9 @@ function recomeçar() {
 			valores_divisao[index]=0;
 		}
 		for (let index = 0; index < num.length; index++) {
-			num[index]=0;
-			
+			num[index]=0;	
 		}
+		
 	}
 }
 function perdeu_vida() {
@@ -328,12 +435,16 @@ function gerar_layout() {
 	if (fase == 0) {
 		if (fase_intro == 0) {
 			background(img_bk_menu);
-			image(img_logo, 325,40,350,300);
+			image(img_logo, 100,60,350,300);
 			textSize(40);
 			fill(255);
-			rect(350, 360, 300, 75);
+			rect(520, 130, 300, 75);
+			rect(520, 220, 300, 75);
+			rect(520, 310, 300, 75);
 			fill(0);
-			text("Começar", 415, 410)
+			text("Começar", 580, 180)
+			text("Instruções", 570, 270)
+			text("Créditos", 580, 360)
 			
 		} else if (fase_intro == 1) {
 			background(img_bk_intro_1);
@@ -343,28 +454,126 @@ function gerar_layout() {
 			fill(0);
 			text("Proximo", 780, 570);
 		} else if (fase_intro == 2) {
-			background(img_bk_intro_2);
 			textSize(30);
+			background(img_bk);
+			for (let index = 0; index < 10; index++) {
+				if (num_test[index] > 0) {
+					image(img_m_r, posicao_m_x[index], posicao_m_y[index], 60, 65);
+					if (num_test[index] > 9) {
+						text(num_test[index], (posicao_m_x[index] + 10), posicao_m_y[index] + 50);
+					} else {
+						text("0" + num_test[index], (posicao_m_x[index] + 10), posicao_m_y[index] + 50);
+					}
+				} else {
+					image(img_m_b, posicao_m_x[index], posicao_m_y[index], 60, 65);
+				}
+			}
+			// gera os sinais do menu de macâs
+			for (let index = 0; index < 3; index++) {
+				fill(255);
+				textSize(30);
+				text("+", 85 + (index * 90), 550)
+			}
+			// gera o menu de macâs
+			for (let index = 0; index < 4; index++) {
+				if (valores_selecionados[index] > 0) {
+					image(img_m_r, 20 + (index * 90), 510, 60, 65);
+					if (valores_selecionados[index] > 9) {
+						text(valores_selecionados[index], 30 + (index * 90), 560);
+					} else {
+						text("0" + valores_selecionados[index], 30 + (index * 90), 560);
+					}
+				} else {
+					image(img_m_b, 20 + (index * 90), 510, 60, 65);
+				}
+			}
+			// gera torta
+			image(img_pie, 800, 500, 120, 60)
+			textSize(50);
 			fill(255);
-			rect(740, 520, 200, 75);
-			fill(0);
-			text("Proximo", 780, 570);
-		} else if (fase_intro == 3) {
-			background(img_bk_intro_3);
-			textSize(30);
-			fill(255);
-			rect(740, 520, 200, 75);
-			fill(0);
-			text("Proximo", 780, 570);
-		} else if (fase_intro == 4) {
-			background(img_bk_intro_4);
-			textSize(30);
-			fill(255);
-			rect(740, 520, 200, 75);
-			fill(0);
-			text("Proximo", 780, 570);
+			text("|06", 850, 480);
+			fill(226, 4, 19);
+			valores_selecionados_resultado = valores_selecionados[0] + valores_selecionados[1] + valores_selecionados[2] + valores_selecionados[3];
+			if (valores_selecionados_resultado < 10) {
+				text("0" + valores_selecionados_resultado, 790, 480);
+			} else {
+				text(valores_selecionados_resultado, 790, 480);
+			}
+			// gera o boneco e frases a cada etpa
+			if(fase_intro_etapa==0){
+				image(img_boneco_1, 0, 200, 230, 300);
+				fill(255);
+				noStroke();
+				rect(30, 50, 400, 140, 10);
+				triangle(300, 180, 250, 250, 350, 180);
+				fill(0);
+				textSize(20);
+				text("Olá, vamos aprender como pegar maças? \nPara começar tente clicar na maçã\nselecionada.", 40, 100);
+				noStroke();
+				strokeWeight(4);
+				stroke(255, 204, 0);
+				noFill();
+				circle(posicao_m_x[2]+30, posicao_m_y[2]+35, 90);
+				noStroke();
+				
+			}else if(fase_intro_etapa==1 || fase_intro_etapa==2){
+				image(img_boneco_1, 0, 200, 230, 300);
+				fill(255);
+				noStroke();
+				rect(30, 50, 400, 140, 10);
+				triangle(300, 180, 250, 250, 350, 180);
+				fill(0);
+				textSize(20);
+				text("Otimo! olhe a maça está aqui em baixo\nagora e ali no canto o numero vermeho\naumentou. Adicine maçâs até o numero\nficar igual.", 50, 90);
+				noStroke();
+				if(fase_intro_etapa==1){
+					strokeWeight(4);
+					stroke(255, 204, 0);
+					noFill();
+					circle(posicao_m_x[7]+30, posicao_m_y[7]+35, 90);
+					noStroke();
+				}else{
+					strokeWeight(4);
+					stroke(255, 204, 0);
+					noFill();
+					circle(posicao_m_x[4]+30, posicao_m_y[4]+35, 90);
+					noStroke();
+				}
+				
+			}else if(fase_intro_etapa==3){
+				image(img_boneco_1, 0, 200, 230, 300);
+				fill(255);
+				noStroke();
+				rect(30, 50, 400, 140, 10);
+				triangle(300, 180, 250, 250, 350, 180);
+				fill(0);
+				textSize(20);
+				text("Perceba que o número vermelho estar\nmaior que a meta, se isso acontecer voce\nperde uma vida, mas caso não tenha\npassado voce pode clicar em baixo e\nremover a maçã que achar melhor.", 50, 75);
+				noStroke();
+				strokeWeight(4);
+				stroke(255, 204, 0);
+				noFill();
+				circle(140, 545, 90);
+				noStroke();	
+			}else if(fase_intro_etapa==4){
+				image(img_boneco_1, 0, 200, 230, 300);
+				fill(255);
+				noStroke();
+				rect(30, 50, 400, 140, 10);
+				triangle(300, 180, 250, 250, 350, 180);
+				fill(0);
+				textSize(20);
+				text("Excelente! Você está pronto para começar,\nclique em continuar!", 40, 100);
+				textSize(30);
+				fill(9, 116, 194)
+				stroke(1);
+				rect(740, 520, 200, 75);
+				noStroke();
+				fill(255);
+				text("Proximo", 780, 570);
+			}
 		}
-	}else if (fase >= 1 && fase <= 2) {
+	}else if (fase >= 1 && fase <= 3) {
 		background(img_bk);
 		// gera as macâs na arvore 
 		for (let index = 0; index < 10; index++) {
@@ -380,7 +589,7 @@ function gerar_layout() {
 			}
 		}
 		// gera os sinais do menu de macâs
-		for (let index = 0; index < 5; index++) {
+		for (let index = 0; index < 3; index++) {
 			if (index < 4) {
 				fill(255);
 				textSize(30);
@@ -388,7 +597,7 @@ function gerar_layout() {
 			}
 		}
 		// gera o menu de macâs
-		for (let index = 0; index < 5; index++) {
+		for (let index = 0; index < 4; index++) {
 			if (valores_selecionados[index] > 0) {
 				image(img_m_r, 20 + (index * 90), 510, 60, 65);
 				if (valores_selecionados[index] > 9) {
@@ -400,18 +609,50 @@ function gerar_layout() {
 				image(img_m_b, 20 + (index * 90), 510, 60, 65);
 			}
 		}
+		//gera o boneco com dicas
+		if(vidas==3){
+				image(img_boneco_2, 0, 200, 230, 300);
+				fill(255);
+				noStroke();
+				rect(30, 50, 400, 140, 10);
+				triangle(300, 180, 250, 250, 350, 180);
+				fill(0);
+				textSize(20);
+				text("Agora é valendo!\nSe você achar difícil, pause o jogo e faça\nem um papel a continha!\nLembre-se que aqui você vai somar os\nnumeros das mançâs.", 50, 75);
+				noStroke();
+		}else if(vidas==2){
+				image(img_boneco_5, 0, 200, 230, 300);
+				fill(255);
+				noStroke();
+				rect(30, 50, 400, 140, 10);
+				triangle(300, 180, 250, 250, 350, 180);
+				fill(0);
+				textSize(20);
+				text(" Cuidado com o tempo!\nVocê tem mais duas vidas.", 50, 100);
+				noStroke();
+		}else{
+				image(img_boneco_6, 0, 200, 230, 300);
+				fill(255);
+				noStroke();
+				rect(30, 50, 400, 140, 10);
+				triangle(300, 180, 250, 250, 350, 180);
+				fill(0);
+				textSize(20);
+				text("Nossas vidas estão baixas!\nPause o jogo e tente fazer na folha de\npapel as contas!", 50, 75);
+				noStroke();
+			}
 		image(img_pie, 800, 500, 120, 60)
 		textSize(50);
 		fill(255);
 		text("|" + numero_objetivo, 850, 480);
 		fill(226, 4, 19);
-		valores_selecionados_resultado = valores_selecionados[0] + valores_selecionados[1] + valores_selecionados[2] + valores_selecionados[3] + valores_selecionados[4];
+		valores_selecionados_resultado = valores_selecionados[0] + valores_selecionados[1] + valores_selecionados[2] + valores_selecionados[3];
 		if (valores_selecionados_resultado < 10) {
 			text("0" + valores_selecionados_resultado, 790, 480);
 		} else {
 			text(valores_selecionados_resultado, 790, 480);
 		}
-	} else if (fase >= 3 && fase <= 4) {
+	} else if (fase >= 4 && fase <= 6) {
 		background(img_bk_fase_2);
 		// gera as macâs na mesa
 		for (let index = 0; index < 10; index++) {
@@ -429,7 +670,7 @@ function gerar_layout() {
 		// gera os sinais do menu de macâs
 		image(img_m_r, 50, 200, 70, 75);
 		text(control_34, 65, 255);
-		for (let index = 0; index < 5; index++) {
+		for (let index = 0; index < 4; index++) {
 			if (index < 4) {
 				fill(255);
 				textSize(30);
@@ -449,45 +690,112 @@ function gerar_layout() {
 				image(img_m_b, 150 + (index * 90), 205, 60, 65);
 			}
 		}
+		if(vidas==3){
+			image(img_boneco_2_i, 530, 220, 290, 380);
+			fill(255);
+			noStroke();
+			rect(550, 80, 400, 140, 10);
+			triangle(800, 180, 700, 250, 700, 180);
+			fill(0);
+			textSize(20);
+			text("Você é fera nisso!\nSe você achar difícil, pause o jogo e faça\nem um papel a continha!\nLembre-se que aqui você vai subtrair os\nnumeros das mançâs.", 560, 105);
+			noStroke();
+		}else if(vidas==2){
+			image(img_boneco_5_i, 530, 220, 290, 380);
+			fill(255);
+			noStroke();
+			rect(550, 80, 400, 140, 10);
+			triangle(800, 180, 700, 250, 700, 180);
+			fill(0);
+			textSize(20);
+			text("Cuidado com o tempo!\nVocê tem mais duas vidas.\nLembre-se que aqui você vai subtrair os\nnumeros das mançâs", 580, 120);
+			noStroke();
+		}else{
+			image(img_boneco_6_i, 530, 220, 290, 380);
+			fill(255);
+			noStroke();
+			rect(550, 80, 400, 140, 10);
+			triangle(800, 180, 700, 250, 700, 180);
+			fill(0);
+			textSize(20);
+			text("Nossas vidas estão baixas!\nPause o jogo e tente fazer na folha de\npapel as contas!\nLembre-se que aqui você vai subtrair os\nnumeros das mançâs", 560, 105);
+			noStroke();
+		}
 		image(img_pie, 800, 500, 120, 60)
 		textSize(50);
 		fill(255);
-		text("|" + (control_34 - numero_objetivo), 850, 480);
+		text("|0" + (control_34 - numero_objetivo), 850, 480);
 		fill(226, 4, 19);
-		valores_selecionados_resultado = valores_selecionados[0] + valores_selecionados[1] + valores_selecionados[2] + valores_selecionados[3] + valores_selecionados[4];
+		valores_selecionados_resultado = valores_selecionados[0] + valores_selecionados[1] + valores_selecionados[2] + valores_selecionados[3];
 		if ((control_34 - valores_selecionados_resultado) < 10) {
 			text("0" + (control_34 - valores_selecionados_resultado), 790, 480);
 		} else {
 			text((control_34 - valores_selecionados_resultado), 790, 480);
 		}
-	} else if (fase >= 5 && fase <= 6) {
+	} else if (fase >= 7 && fase <= 9) {
 		if (control_view_5 == 0) {
 			clear();
 			contagem_regreciva(2);
-			background(img_bk_intro_fase_3);
-			fill(255);
-			rect(770, 480, 200, 75);
+			background(img_bk_fase_3);
+			image(img_boneco_2, 0, 200, 310, 400);
+			stroke(1);
+			rect(740, 520, 200, 75);
+			noStroke();
 			fill(0);
-			text("Proximo", 810, 530);
+			text("Proximo", 780, 570);
+			fill(255);
+			rect(100, 80, 550, 140, 10);
+			triangle(310, 200, 280, 250, 360, 200);
+			textSize(25);
+			fill(0)
+			text("Você realmente tem o dom para a cozinha!\nAgora vamos usar minha maquinha secreta,\no multiplicador de tortas.", 120,120);
+			
 		} else {
 			background(img_bk_fase_3);
-			fill(0);
-			textSize(23);
-			text("Para essa maquina funcionar você precisa escolher um dos botões\ncom valores para a multiplicação, ela é muito precisa, então não\nsaia clicando em todos. Nos precisamos de " + numero_objetivo + " tortas. Vamos lá!?", 60, 100);
 			for (let index = 0; index < 5; index++) {
 				textSize(28);
 				fill(146, 208, 80);
-				rect(640, 280 + (index * 60), 130, 50);
+				rect(670, 265 + (index * 62.5), 150, 50);
 				fill(255);
 			}
 			for (let index = 0; index < 5; index++) {
-				text("x" + valores_multiplicacao[index], 685, 315 + (index * 60));
+				text("x" + valores_multiplicacao[index], 720, 300 + (index * 62.5));
 			}
+			if(vidas==3){
+				image(img_boneco_2, 0, 200, 310, 400);
+				fill(255);
+				noStroke();
+				rect(100, 80, 800, 140, 10);
+				triangle(310, 200, 280, 250, 360, 200);
+				textSize(25);
+				fill(0);
+				text("Para essa maquina funcionar você precisa escolher um dos botões\ncom valores para a multiplicação, ela é muito precisa, então não\nsaia clicando em todos. Nós precisamos de " + numero_objetivo + " tortas. Vamos lá!?", 120, 120);
+			}else if(vidas==2){
+				image(img_boneco_5, 0, 200, 310, 400);
+				fill(255);
+				noStroke();
+				rect(100, 80, 800, 140, 10);
+				triangle(310, 200, 280, 250, 360, 200);
+				textSize(25);
+				fill(0);
+				text("Cuidado com o tempo!\nVocê tem mais duas vidas. Nós precisamos de " + numero_objetivo + " tortas.\nVamos lá!?", 120, 130);	
+			}else{
+				image(img_boneco_6,0, 200, 310, 400);
+				fill(255);
+				noStroke();
+				rect(100, 80, 800, 140, 10);
+				triangle(310, 200, 280, 250, 360, 200);
+				textSize(25);
+				fill(0);
+				text("Nossas vidas estão baixas!\nPause o jogo e tente fazer na folha de papel as contas!\nNós precisamos de " + numero_objetivo + " tortas. Vamos lá!?", 120, 120);
+			}
+			fill(255);
 			textSize(40);
-			image(img_pie, 400, 468, 120, 60);
-			text("0" + numero_de_tortas, 435, 450);
+			image(img_pie, 440, 420, 120, 60);
+			text("0" + numero_de_tortas, 475, 410);
+			text("Tortas", 445, 520);
 		}
-	} else if (fase >= 7 && fase <= 8) {
+	} else if (fase >= 10 && fase <= 12) {
 		background(img_bk_fase_4);
 		fill(255)
 		textSize(23);
@@ -507,15 +815,61 @@ function gerar_layout() {
 		fill(0);
 		textSize(30);
 		text("Jogar Novamente", 455, 385);
-	}else if(fase==9){
+	}else if(fase==102){
 		background(img_bk_final);
 		fill(255);
 		rect(450, 350 , 250, 50);
 		fill(0);
 		textSize(30);
 		text("Jogar Novamente", 455, 385);
+	}else if(fase==103){
+		background(img_bk_inst);
+		fill(255);
+		rect(20, 10 , 130, 50);
+		fill(0);
+		textSize(30);
+		text("voltar", 45, 45);
+		text("Púbico Alvo", 440, 100);
+		textSize(25);
+		text("Crianças do 4º Ano em diante", 350, 150);
+		text("Diciplina: Matematica", 400, 200);
+		text("Categoria do colabeduc.org:(EF04MA03)(EF04MA06)(EF04MA07)", 130, 250);
+		textSize(30);
+		text("Descrição do jogo", 400, 300);
+		textSize(25);
+		text("Tortas do chefe é um jogo educativo que tem o objetivo fazer crianças treinarem as\nquatro operações matemáticas, porém fugindo da velha forma de tabuada dos jogos,\npor meio de cenários coloridos e uma historinha estimulante.", 30, 350);	
+	}else if(fase==104){
+		background(img_bk_inst);
+		fill(255);
+		rect(20, 10 , 130, 50);
+		fill(0);
+		textSize(30);
+		text("voltar", 45, 45);
+		image(img_boneco_5_i, 640, 150, 340, 450);
+		image(img_porf, 100, 80, 150, 160);
+		text("Orientadora:", 280, 110);
+		textSize(25);
+		text("Josidalva Raimunda de Sousa", 280, 140);
+		text("Professora de Língua Portuguesa e Espanhol", 280, 170);
+		image(img_dev, 100, 270, 150, 160);
+		textSize(30);
+		text("Desenvolvedor:", 280, 300);
+		textSize(25);
+		text("Deusimar Teixeira da Silva Junior", 280, 330);
+		text("Graduando em Ciência e Tecnologia ", 280, 360);
 	}
-	if(fase>=1 && fase<=8){
+
+	if(fase>=1 && fase<=12){
+		fill(255);
+			rect(945, 520 , 50, 35);
+		if(status_cont==1){
+			fill(0);
+			rect(962, 525 , 5, 25);
+			rect(973, 525 , 5, 25);
+		}else{
+			fill(0);
+			triangle(962, 525, 962 ,550, 980, 537);
+		}
 		fill(255);
 		textSize(30);
 		text("Level: "+fase+"", 20, 42);
@@ -549,21 +903,24 @@ function getRandomInt(min, max) {
 }
 function verifica(numero) {
 	verif = 0;
-	if (fase > 0 && fase < 5) {
-		for (var x = num.length - 1; x >= 0; x--) {
-			if (numero == num[x]) {
-				verif = 1;
-				break;
-			}
-		}
-		if (verif != 0 || numero == numero_objetivo) {
+	if (fase => 0 && fase <= 6) {
+		if(numero == numero_objetivo){
 			return false;
-		} else {
-			return true;
-		}
-	} else if (fase > 4 && fase < 7) {
+		}else{
+			for (var x = num.length - 1; x >= 0; x--) {
+				if (numero == num[x]) {
+					verif = 1;
+					break;
+				}
+			}
+			if (verif != 0 ) {
+				return false;
+			} else {
+				return true;
+			}
+		}	
+	} else if (fase >= 7 && fase <= 9) {
 		for (var x = valores_multiplicacao.length - 1; x >= 0; x--) {
-
 			if (numero == valores_multiplicacao[x]) {
 				verif = 1;
 				break;
@@ -574,7 +931,7 @@ function verifica(numero) {
 		} else {
 			return true;
 		}
-	} else if (fase > 6 && fase < 9) {
+	} else if (fase >= 10 && fase <= 12) {
 		for (var x = valores_divisao.length - 1; x >= 0; x--) {
 
 			if (numero == valores_divisao[x]) {
@@ -590,27 +947,15 @@ function verifica(numero) {
 	}
 }
 function gerar_numeros() {
-	if (fase >= 1 && fase < 5) {
-		if (fase == 1) {
-			//console.log("Carregamento inciado modo facil");
-			numero_objetivo = getRandomInt(5, 10)
-			for (var i = 7; i >= 0; i--) {
-				let numero22 = getRandomInt(1, 10);
-				while (verifica(numero22) == false) {
-					numero22 = getRandomInt(1, 10);	
-				}
-				num[i] = numero22;
+	if (fase >= 1 && fase <=6) {
+		
+		for (var i = 9; i >= 0; i--) {
+			let numero22 = getRandomInt(1, 30);
+			while (verifica(numero22) == false) {
+				numero22 = getRandomInt(1, 30);
 			}
-		} else {
-			//console.log("Carregamento inciado modo normal");
-			for (var i = 9; i >= 0; i--) {
-				let numero22 = getRandomInt(1, 20);
-				while (verifica(numero22) == false) {
-					numero22 = getRandomInt(1, 20);
-				}
-				num[i] = numero22;
-			}	
-		}
+			num[i] = numero22;
+		}	
 		for (var x = 9; x >= 0; x--) {
 			for (var y = 9; y >= 0; y--) {
 				for (var z = 9; z >= 0; z--) {
@@ -630,14 +975,20 @@ function gerar_numeros() {
 				}
 			}
 		}
+
 		numero_objetivo = ocorrencia.indexOf(Math.max.apply(null, ocorrencia));
-		if(fase==3 || fase==4){
+		while(numero_objetivo==numero_us){
+			ocorrencia[ocorrencia.indexOf(Math.max.apply(null, ocorrencia))]=0;
+			numero_objetivo = ocorrencia.indexOf(Math.max.apply(null, ocorrencia));
+		}
+		numero_us=numero_objetivo;
+		if(fase==4 || fase==5 || fase==6){
 			control_34 = getRandomInt(numero_objetivo + 5, numero_objetivo + 20);
 		}
-	} else if (fase > 4 && fase < 7) {
-		numero_objetivo = getRandomInt(10, 30);
+	} else if (fase >= 7 && fase <=9) {
+		numero_objetivo = getRandomInt(10, 25);
 		while (numero_objetivo % 2 != 0 && numero_objetivo % 3 != 0 && numero_objetivo % 4 != 0 && numero_objetivo % 5 != 0 && numero_objetivo % 6 != 0 && numero_objetivo % 7 != 0 && numero_objetivo % 8 != 0 && numero_objetivo % 9 != 0) {
-			numero_objetivo = getRandomInt(30, 50);
+			numero_objetivo = getRandomInt(10, 25);
 		}
 		numero_de_tortas = getRandomInt(2, 9);
 		while (numero_objetivo % numero_de_tortas != 0) {
@@ -646,25 +997,25 @@ function gerar_numeros() {
 		let posi_certa = getRandomInt(0, 4);
 		valores_multiplicacao[posi_certa] = numero_objetivo / numero_de_tortas;
 		//console.log("o certo está em: " + posi_certa);
-
 		for (let index = 0; index < 5; index++) {
 			if(index!=posi_certa){
 				let numero_v = (index + 1) * getRandomInt(1, 5);
-				while (verifica(numero_v)) {
+				while (numero_v==(numero_objetivo / numero_de_tortas)) {
 					numero_v = (index + 1) * getRandomInt(1, 5);
 				}
 				valores_multiplicacao[index] = numero_v;
 			}
 		}
-	} else if (fase>=7 && fase<=8) {
-		if(fase==7){
-			numero_objetivo = getRandomInt(10, 30);
+	} else if (fase>=10 && fase<=12) {
+		if(fase==10){
+			numero_objetivo = getRandomInt(10, 20);
 		}else{
-			numero_objetivo = getRandomInt(30, 70);
+			numero_objetivo = getRandomInt(30, 50);
 		}
-		while(numero_objetivo %2!=0 && numero_objetivo %3!=0 && numero_objetivo %5!=0 &&numero_objetivo %7!=0){
+		while(numero_objetivo %2!=0 && numero_objetivo %3!=0 && numero_objetivo %5!=0 &&numero_objetivo %7!=0 && numero_us!=numero_objetivo){
 			numero_objetivo = getRandomInt(10, 40);
 		}
+		numero_us = numero_objetivo;
 		dividendo = getRandomInt(2, 9);
 		while(numero_objetivo % dividendo!=0){
 			dividendo = getRandomInt(2, 9);
@@ -676,7 +1027,7 @@ function gerar_numeros() {
 		for (let index = 0; index < 5; index++) {
 			if(index!=posi_certa){
 				let numero_v = (index + 1) * getRandomInt(1, 4);
-				while (verifica(numero_v)) {
+				while (numero_v==(numero_objetivo / dividendo)) {
 					numero_v = (index + 1) * getRandomInt(1, 4);
 				}
 				valores_divisao[index] = numero_v;
