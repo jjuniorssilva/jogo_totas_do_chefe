@@ -12,97 +12,100 @@ let posicao_m_x_2 = [10, 50, 130, 140, 250, 250, 390, 350, 490, 440];
 let posicao_m_y_2 = [450, 520, 460, 530, 450, 530, 455, 530, 460, 530];
 let cronometro = [0, 0];
 
-let fase = 0, fase_intro = 0, fase_intro_etapa=0;
-let vidas = 3, config = 0, control_34 = 0, control_view_5 = 0;numero_objetivo_us=0;
+let fase = 105, fase_intro = 0, fase_intro_etapa=0;
+let vidas = 3, config = 0, control_34 = 0, control_view_5 = 0;numero_objetivo_us=0;loading_file=0;
 let img_porf,img_dev,img_bk_inst,img_bk_credt,img_logo,img_sound,img_nosound,img_bk_perdeu,img_bk_final, img_bk, img_m_r, img_pie, img_bk_fase_2, img_bk_fase_3, img_bk_fase_4, img_bk_intro_1, img_bk_intro_2, img_bk_intro_fase_3, img_bk_intro_3, img_bk_intro_4, img_bk_menu,img_boneco_1,img_boneco_2,img_boneco_3,img_boneco_1_i,img_boneco_2_i,img_boneco_5,img_boneco_6;
 let numero_us=0,numero_objetivo, valores_selecionados_resultado, numero_de_tortas, dividendo=0;
 let intervalId,status_cont=1,time=0;
 let canvas;
-let sound_fundo,sound_vence,sound_perdeu,sound_acertou,sound_errou,status_sound_fundo=1;
+let sound_fundo,sound_vence,sound_perdeu,sound_acertou,sound_errou,status_sound_fundo=1, audio_Context=0;
 
-function preload() {
-	sound_fundo = loadSound('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/fundo.mp3');
-	sound_venceu = loadSound('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/venceu.mp3');
-	sound_perdeu = loadSound('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/perdeu.mp3');
-	sound_acertou = loadSound('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/acertou.mp3');
-	sound_errou = loadSound('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/errado.mp3');
-
-	img_bk = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/bk.jpg');
-	img_bk_fase_2 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/bk_fase_2.jpg');
-	img_bk_fase_3 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/bk_fase_3_1.jpg');
-	img_bk_fase_4 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/bk_fase_4.jpg');
-
-	img_logo = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/logo.png');
-	img_bk_menu = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/menu.jpg');
-	img_bk_intro_1 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/intro_1.jpg');
-	img_bk_inst = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/b5.jpg');
-	img_bk_credt = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/b7.jpg');
-	img_bk_intro_2 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/intro_2.jpg');
-	img_bk_intro_3 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/intro_3.jpg');
-	img_bk_intro_4 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/intro_4.jpg');
-	img_bk_intro_fase_3 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/intro_fase_3.jpg');
-	img_bk_final = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/final.jpg');
-	img_bk_perdeu = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/perdeu.jpg');
-
-	img_m_r = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/m_red.png');
-	img_m_b = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/m_black.png');
-	img_pie = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/pie_of_apple.png');
-	img_sound = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/icon_sound.png'); 
-	img_nosound = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/icon_nosound.png'); 
-	
-	img_boneco_1=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_1.png');
-	img_boneco_2=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_2.png');
-	img_boneco_5=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_5.png');
-	img_boneco_6=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_6.png');
-	img_boneco_5_i=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_5_i.png');
-	img_boneco_6_i=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_6_i.png');
-	img_boneco_1_i=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_1_i.png');
-	img_boneco_2_i=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_2_i.png');
-	img_porf=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/prof.jpg');
-	img_dev=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/dev.jpg');
-	//img_boneco_3=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_3.png');
-	//img_boneco_4=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/m_red.png');
-	//img_boneco_5=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/m_red.png');
-	//img_boneco_6=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/m_red.png');
-}
 
 function setup() {
 	canvas = createCanvas(1000, 600);
 	canvas.parent('canvas1');
+	
+	img_logo = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/logo.png',loading_files); 
+	sound_fundo = loadSound('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/fundo.mp3',loading_files);
+	sound_venceu = loadSound('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/venceu.mp3',loading_files);
+	sound_perdeu = loadSound('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/perdeu.mp3',loading_files);
+	sound_acertou = loadSound('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/acertou.mp3',loading_files);
+	sound_errou = loadSound('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/errado.mp3',loading_files);
+
+	img_bk = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/bk.jpg',loading_files);
+	img_bk_fase_2 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/bk_fase_2.jpg',loading_files);
+	img_bk_fase_3 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/bk_fase_3_1.jpg',loading_files);
+	img_bk_fase_4 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/bk_fase_4.jpg',loading_files);
+
+	img_bk_menu = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/menu.jpg');
+	img_bk_intro_1 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/intro_1.jpg',loading_files);
+	img_bk_inst = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/b5.jpg',loading_files);
+	img_bk_credt = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/b7.jpg',loading_files);
+	img_bk_intro_2 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/intro_2.jpg',loading_files);
+	img_bk_intro_3 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/intro_3.jpg',loading_files);
+	img_bk_intro_4 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/intro_4.jpg',loading_files);
+	img_bk_intro_fase_3 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/intro_fase_3.jpg',loading_files);
+	img_bk_final = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/final.jpg',loading_files);
+	img_bk_perdeu = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/perdeu.jpg',loading_files);
+
+	img_m_r = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/m_red.png',loading_files);
+	img_m_b = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/m_black.png',loading_files);
+	img_pie = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/pie_of_apple.png',loading_files);
+	img_sound = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/icon_sound.png',loading_files); 
+	img_nosound = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/icon_nosound.png',loading_files); 
+	
+	img_boneco_1=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_1.png',loading_files);
+	img_boneco_2=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_2.png',loading_files);
+	img_boneco_5=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_5.png',loading_files);
+	img_boneco_6=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_6.png',loading_files);
+	img_boneco_5_i=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_5_i.png',loading_files);
+	img_boneco_6_i=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_6_i.png',loading_files);
+	img_boneco_1_i=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_1_i.png',loading_files);
+	img_boneco_2_i=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_2_i.png',loading_files);
+	img_porf=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/prof.jpg',loading_files);
+	img_dev=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/dev.jpg',loading_files);
+
 	sound_fundo.setVolume(0.1);
 	sound_errou.setVolume(0.1);
 	sound_acertou.setVolume(0.5);
 	sound_perdeu.setVolume(0.1);
 	sound_venceu.setVolume(0.2);
-	sound_fundo.loop();
 }
 
 function draw() {
-		clear();
-		if (config == 0 && fase>0) {
-			gerar_numeros();
-			config = 1;
-		}
-		gerar_layout();
-		verificacao_fase();
+	clear();
+	if (config == 0 && fase>0) {
+		gerar_numeros();
+		config = 1;
+	}
+	gerar_layout();
+	verificacao_fase();
 }
 
 //------------------------------------------- funções de manutenção da jogatina-------------------------------
 function mouseClicked() {
 	if (fase == 0) {
 		if (fase_intro == 0) {
-			if ((mouseX > 520 && mouseX < 520+300) && (mouseY > 130 && mouseY < 130+75)) {
-				next_fase_intro();
+			if(audio_Context==0){
+				if ((mouseX>670 && mouseX<970) && (mouseY>500 && mouseY<575)) {
+					if (getAudioContext().state !== 'running') {
+						getAudioContext().resume();
+					}
+					sound_fundo.loop();	
+					audio_Context=1;
+				}
+			}else{
+				if ((mouseX > 520 && mouseX < 520+300) && (mouseY > 130 && mouseY < 130+75)) {
+					next_fase_intro();
+				}
+				if ((mouseX > 520 && mouseX < 520+300) && (mouseY > 220 && mouseY < 220+75)) {
+					fase=103;
+					
+				} 
+				if ((mouseX > 520 && mouseX < 520+300) && (mouseY > 310 && mouseY < 310+75)) {
+					fase=104;
+				} 
 			}
-			if ((mouseX > 520 && mouseX < 520+300) && (mouseY > 220 && mouseY < 220+75)) {
-				console.log("Intrução");
-				fase=103;
-			} 
-			if ((mouseX > 520 && mouseX < 520+300) && (mouseY > 310 && mouseY < 310+75)) {
-				console.log("créditos");
-				fase=104;
-			} 
-
 		}else if (fase_intro == 1) {
 			if ((mouseX > 740 && mouseX < 940) && (mouseY > 520 && mouseY < 595)) {
 				next_fase_intro();
@@ -239,7 +242,7 @@ function mouseClicked() {
 			fase=0;
 		}
 	}
-	if ((mouseX > 945 && mouseX < (995)) && (mouseY > 560 && mouseY < 595)) {
+	if ((mouseX > 945 && mouseX < (995)) && (mouseY > 560 && mouseY < 595) && audio_Context!=0) {
 		if(sound_fundo.isPlaying()){
 			sound_fundo.stop();
 			status_sound_fundo=0;
@@ -295,11 +298,13 @@ function numero_selecionado(posi) {
 function numero_desselecionado(posi) {
 	if(fase>=1){
 		if (valores_selecionados[posi] != 0) {
-			for (let index = 0; index < num.length; index++) {
-				if (num[index] == 0) {
-					num[index] = valores_selecionados[posi];
-					valores_selecionados[posi] = 0;
-					break;
+			if (num.indexOf(0) > -1) {
+				for (let index = 0; index < num.length; index++) {
+					if (num[index] == 0) {
+						num[index] = valores_selecionados[posi];
+						valores_selecionados[posi] = 0;
+						break;
+					}
 				}
 			}
 		}
@@ -352,9 +357,7 @@ function next_fase() {
 		recomeçar();
 		fase = fase + 1;
 		config = 0;
-	}
-	
-	
+	}	
 }
 function next_fase_intro() {
 	if (fase_intro >=2) {
@@ -429,7 +432,15 @@ function perdeu_vida() {
 		recomeçar();
 	}
 }
-//-------------------------------------------------------- bloco dos layout do jogo ----------------//
+function loading_files(){
+	loading_file++;
+	//console.log("carregou "+parseInt(loading_file*(100/34))+"%");
+	if(loading_file>33){
+		//console.log("Todos carregados");
+		setTimeout(function() { fase=0; }, 1000);
+	}
+}
+//-------------------------------------------------------- bloco do layout do jogo ----------------//
 function gerar_layout() {
 	fill(255);
 	if (fase == 0) {
@@ -437,25 +448,75 @@ function gerar_layout() {
 			background(img_bk_menu);
 			image(img_logo, 100,60,350,300);
 			textSize(40);
-			fill(255);
+			stroke(0);
+			strokeWeight(3);
+			if((mouseX>520 && mouseX<820) && (mouseY>130 && mouseY<130+75) && audio_Context==1){
+				fill('powderblue');
+			}else{
+				fill(255);
+			}
 			rect(520, 130, 300, 75);
+			if((mouseX>520 && mouseX<820)&& (mouseY>220 && mouseY<220+75) && audio_Context==1 ){
+				fill('powderblue');
+			}else{
+				fill(255);
+			}
 			rect(520, 220, 300, 75);
+			if((mouseX>520 && mouseX<820)&& (mouseY>310 && mouseY<310+75) && audio_Context==1){
+				fill('powderblue');
+			}else{
+				fill(255);
+			}
 			rect(520, 310, 300, 75);
+			noStroke();
 			fill(0);
 			text("Começar", 580, 180)
 			text("Instruções", 570, 270)
 			text("Créditos", 580, 360)
+			if(audio_Context==0){
+				fill('rgba(0,0,0, 0.9)');
+				rect(0, 0, 1000, 600);
+				fill(255);
+				noStroke();
+				rect(30, 50, 600, 140, 10);
+				triangle(400, 180, 380, 250, 450, 180);
+				image(img_boneco_1, 100, 220, 300, 380);
+				if((mouseX>670 && mouseX<970) && (mouseY>500 && mouseY<575)){
+					fill('powderblue');
+				}else{
+					fill(255);
+				}
+				stroke(0);
+				strokeWeight(4);
+				rect(670, 500, 300, 75);
+				noStroke();
+				fill(0);
+				textSize(25);
+				text("Olá, esse jogo é totalmente educacional, sem fins\nlucrativos, espero que goste. Vamos lá!", 40, 100);
+				textSize(30);
+				text("Vamos lá!",750, 550)
+				stroke(0);
+				strokeWeight(0);
+			}
 			
 		} else if (fase_intro == 1) {
 			background(img_bk_intro_1);
 			textSize(30);
-			fill(255);
+			stroke(0);
+			strokeWeight(4);
+			if((mouseX>740 && mouseX<740+200) && (mouseY>520 && mouseY<520+75) && audio_Context==1){
+				fill('powderblue');
+			}else{
+				fill(255);
+			}
 			rect(740, 520, 200, 75);
+			noStroke();
 			fill(0);
-			text("Proximo", 780, 570);
+			text("Próximo", 780, 570);
 		} else if (fase_intro == 2) {
 			textSize(30);
 			background(img_bk);
+			// gera as macâs na árvore
 			for (let index = 0; index < 10; index++) {
 				if (num_test[index] > 0) {
 					image(img_m_r, posicao_m_x[index], posicao_m_y[index], 60, 65);
@@ -499,7 +560,7 @@ function gerar_layout() {
 			} else {
 				text(valores_selecionados_resultado, 790, 480);
 			}
-			// gera o boneco e frases a cada etpa
+			// gera o boneco e frases a cada etapa
 			if(fase_intro_etapa==0){
 				image(img_boneco_1, 0, 200, 230, 300);
 				fill(255);
@@ -565,12 +626,17 @@ function gerar_layout() {
 				textSize(20);
 				text("Excelente! Você está pronto para começar,\nclique em continuar!", 40, 100);
 				textSize(30);
-				fill(9, 116, 194)
-				stroke(1);
+				stroke(0);
+				strokeWeight(4);
+				if((mouseX>740 && mouseX<740+200) && (mouseY>520 && mouseY<520+75) && audio_Context==1){
+					fill('powderblue');
+				}else{
+					fill(255);
+				}
 				rect(740, 520, 200, 75);
 				noStroke();
-				fill(255);
-				text("Proximo", 780, 570);
+				fill(0);
+				text("Próximo", 780, 570);
 			}
 		}
 	}else if (fase >= 1 && fase <= 3) {
@@ -738,27 +804,41 @@ function gerar_layout() {
 			contagem_regreciva(2);
 			background(img_bk_fase_3);
 			image(img_boneco_2, 0, 200, 310, 400);
-			stroke(1);
-			rect(740, 520, 200, 75);
+			
 			noStroke();
-			fill(0);
-			text("Proximo", 780, 570);
 			fill(255);
 			rect(100, 80, 550, 140, 10);
 			triangle(310, 200, 280, 250, 360, 200);
 			textSize(25);
 			fill(0)
-			text("Você realmente tem o dom para a cozinha!\nAgora vamos usar minha maquinha secreta,\no multiplicador de tortas.", 120,120);
-			
-		} else {
-			background(img_bk_fase_3);
-			for (let index = 0; index < 5; index++) {
-				textSize(28);
-				fill(146, 208, 80);
-				rect(670, 265 + (index * 62.5), 150, 50);
+			text("Você realmente tem o dom para a cozinha!\nAgora vamos usar minha maquinha secreta,\no multiplicador de tortas.", 120,120);		
+			stroke(0);
+			strokeWeight(2);
+			if((mouseX>750 && mouseX<950) && (mouseY>520 && mouseY<520+75)){
+				fill('powderblue');
+			}else{
 				fill(255);
 			}
+			textSize(30);
+			rect(740, 520, 200, 75);
+			noStroke();
+			fill(0);
+			text("Proximo", 780, 570);
+	
+		}else{
+			background(img_bk_fase_3);
 			for (let index = 0; index < 5; index++) {
+				noStroke();
+				if((mouseX>670 && mouseX<670+150) && (mouseY>(265 + (index * 62.5)) && mouseY<(265 + (index * 62.5))+50)){
+					fill(10, 80, 10)
+				}else{
+					fill(146, 208, 80);
+				}
+				textSize(30);
+				rect(670, 265 + (index * 62.5), 150, 50);
+			}
+			for (let index = 0; index < 5; index++) {
+				fill(0);
 				text("x" + valores_multiplicacao[index], 720, 300 + (index * 62.5));
 			}
 			if(vidas==3){
@@ -801,8 +881,15 @@ function gerar_layout() {
 		textSize(23);
 		text("Nossas tortas ficaram ótimas! Agora vamos dividi-las para\nos integrantes do jantar. Temos "+numero_objetivo+" tortas e vamos dividir\npara "+dividendo+" pessoas. Cada Pessoa comerá quantas tortas?", 280, 100);
 		for (let index = 0; index < 5; index++) {
-			fill(134, 0, 1);
+			stroke(0);
+			strokeWeight(2);
+			if((mouseX>(285+(index*135)) && mouseX<(285+(index*135))+110) && (mouseY>275 && mouseY<275+125)){
+				fill(90, 0, 0);
+			}else{	
+				fill(134, 0, 1);
+			}
 			rect(285+(index*135), 275 , 110, 125);
+			noStroke();
 			image(img_pie, 290+(index*135), 300, 100, 45);
 			fill(255);
 			textSize(30);
@@ -810,14 +897,22 @@ function gerar_layout() {
 		}
 	}else if(fase==101){
 		background(img_bk_perdeu);
-		fill(255);
+		if((mouseX>450 && mouseX<450+250) && (mouseY>350 && mouseY<350+50)){
+			fill('powderblue');
+		}else{
+			fill(255);
+		}
 		rect(450, 350 , 250, 50);
 		fill(0);
 		textSize(30);
 		text("Jogar Novamente", 455, 385);
 	}else if(fase==102){
 		background(img_bk_final);
-		fill(255);
+		if((mouseX>450 && mouseX<450+250) && (mouseY>350 && mouseY<350+50)){
+			fill('powderblue');
+		}else{
+			fill(255);
+		}
 		rect(450, 350 , 250, 50);
 		fill(0);
 		textSize(30);
@@ -839,29 +934,62 @@ function gerar_layout() {
 		textSize(25);
 		text("Tortas do chefe é um jogo educativo que tem o objetivo fazer crianças treinarem as\nquatro operações matemáticas, porém fugindo da velha forma de tabuada dos jogos,\npor meio de cenários coloridos e uma historinha estimulante.", 30, 350);	
 	}else if(fase==104){
-		background(img_bk_inst);
+		background(img_bk_credt);
 		fill(255);
 		rect(20, 10 , 130, 50);
 		fill(0);
 		textSize(30);
 		text("voltar", 45, 45);
 		image(img_boneco_5_i, 640, 150, 340, 450);
+		fill(57,87,35);
+		rect(95, 75, 160, 170);
 		image(img_porf, 100, 80, 150, 160);
+		fill(0); 
 		text("Orientadora:", 280, 110);
 		textSize(25);
 		text("Josidalva Raimunda de Sousa", 280, 140);
 		text("Professora de Língua Portuguesa e Espanhol", 280, 170);
+		fill(57,87,35);
+		rect(95, 265, 160, 170);
+		fill(0);
 		image(img_dev, 100, 270, 150, 160);
 		textSize(30);
 		text("Desenvolvedor:", 280, 300);
 		textSize(25);
 		text("Deusimar Teixeira da Silva Junior", 280, 330);
 		text("Graduando em Ciência e Tecnologia ", 280, 360);
+	}else if(fase==105){
+		background('cornflowerblue');
+		fill(0);
+		textSize(40);
+		text("Carregando... "+parseInt(loading_file*(100/34))+"%", 330, 180);
+		textSize(25);
+		if(loading_file<12){
+			text("Escolhendo a árvore certa...", 350, 320);
+		}else if(loading_file<20){
+			text("Olhando as maçâs...", 380, 320);
+		}else{
+			text("Vamos começar!!", 400, 320);
+		}
+		noStroke();
+		fill(255,100);
+		rect(50, 210 , loading_file*(900/34) , 70);
+		stroke(0);
+		strokeWeight(4);
+		noFill();
+		rect(50, 210 , 900, 70);
+		strokeWeight(0);
 	}
-
 	if(fase>=1 && fase<=12){
-		fill(255);
-			rect(945, 520 , 50, 35);
+		stroke(0);
+		strokeWeight(2);
+		if((mouseX>945 && mouseX<945+50) && (mouseY>520 && mouseY<520+35) && audio_Context==1){
+			fill('powderblue');
+		}else{
+			fill(255);
+		}
+		rect(945, 520 , 50, 35);
+		noStroke();
 		if(status_cont==1){
 			fill(0);
 			rect(962, 525 , 5, 25);
@@ -886,14 +1014,24 @@ function gerar_layout() {
 			text("Tempo: 0" + cronometro[0] + ":0" + cronometro[1], 800, 40);
 		}
 	}	
-	fill(255);
-	rect(945, 560 , 50, 35);
-	if(status_sound_fundo==0){
-		image(img_nosound, 955, 562, 30, 30);
-	}else{
-		image(img_sound, 955, 562, 30, 30);
+
+	if(audio_Context==1 && (fase>=0 && fase<=12)){
+		stroke(0);
+		strokeWeight(2);
+		if((mouseX>945 && mouseX<945+50) && (mouseY>560 && mouseY<560+35) && audio_Context==1){
+			fill('powderblue');
+		}else{
+			fill(255);
+		}
+		rect(945, 560 , 50, 35);
+		noStroke();
+		if(status_sound_fundo==0){
+				
+			image(img_nosound, 955, 562, 30, 30);
+		}else{
+			image(img_sound, 955, 562, 30, 30);
+		}
 	}
-	
 }
 // -------------------------------------bloco lógico de geração de padroes numericos usados -------------------------------
 function getRandomInt(min, max) {
@@ -902,11 +1040,9 @@ function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min)) + min;
 }
 function verifica(numero) {
-	verif = 0;
+	let verif = 0;
 	if (fase => 0 && fase <= 6) {
-		if(numero == numero_objetivo){
-			return false;
-		}else{
+		
 			for (var x = num.length - 1; x >= 0; x--) {
 				if (numero == num[x]) {
 					verif = 1;
@@ -918,7 +1054,7 @@ function verifica(numero) {
 			} else {
 				return true;
 			}
-		}	
+			
 	} else if (fase >= 7 && fase <= 9) {
 		for (var x = valores_multiplicacao.length - 1; x >= 0; x--) {
 			if (numero == valores_multiplicacao[x]) {
