@@ -1,3 +1,6 @@
+// Video explicativo: https://youtu.be/qr90P7CiTrs
+// Video do jogo:  https://youtu.be/Jl_1XNgUqQc
+
 let num = []
 let num_test = [6,10,2,3,4,5,1,7,9,8]
 let num_select_triple = []
@@ -14,56 +17,50 @@ let cronometro = [0, 0];
 
 let fase = 105, fase_intro = 0, fase_intro_etapa=0;
 let vidas = 3, config = 0, control_34 = 0, control_view_5 = 0;numero_objetivo_us=0;loading_file=0;
-let img_porf,img_dev,img_bk_inst,img_bk_credt,img_logo,img_sound,img_nosound,img_bk_perdeu,img_bk_final, img_bk, img_m_r, img_pie, img_bk_fase_2, img_bk_fase_3, img_bk_fase_4, img_bk_intro_1, img_bk_intro_2, img_bk_intro_fase_3, img_bk_intro_3, img_bk_intro_4, img_bk_menu,img_boneco_1,img_boneco_2,img_boneco_3,img_boneco_1_i,img_boneco_2_i,img_boneco_5,img_boneco_6;
+let img_porf,img_dev,img_bk_inst,img_bk_credt,img_logo,img_sound,img_nosound,img_bk_perdeu,img_bk_final, img_bk, img_m_r, img_pie, img_bk_fase_2, img_bk_fase_3, img_bk_fase_4, img_bk_intro_1, img_bk_intro_fase_3, img_bk_intro_3, img_bk_intro_4, img_bk_menu,img_boneco_1,img_boneco_2,img_boneco_3,img_boneco_1_i,img_boneco_2_i,img_boneco_5,img_boneco_6;
 let numero_us=0,numero_objetivo, valores_selecionados_resultado, numero_de_tortas, dividendo=0;
 let intervalId,status_cont=1,time=0;
 let canvas;
 let sound_fundo,sound_vence,sound_perdeu,sound_acertou,sound_errou,status_sound_fundo=1, audio_Context=0;
 
-
 function setup() {
 	canvas = createCanvas(1000, 600);
 	canvas.parent('canvas1');
 	
-	img_logo = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/logo.png',loading_files); 
-	sound_fundo = loadSound('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/fundo.mp3',loading_files);
-	sound_venceu = loadSound('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/venceu.mp3',loading_files);
-	sound_perdeu = loadSound('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/perdeu.mp3',loading_files);
-	sound_acertou = loadSound('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/acertou.mp3',loading_files);
-	sound_errou = loadSound('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/errado.mp3',loading_files);
+	sound_fundo = loadSound('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/music/fundo.mp3',loading_files);
+	sound_venceu = loadSound('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/music/venceu.mp3',loading_files);
+	sound_perdeu = loadSound('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/music/perdeu.mp3',loading_files);
+	sound_acertou = loadSound('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/music/acertou.mp3',loading_files);
+	sound_errou = loadSound('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/music/errado.mp3',loading_files);
 
-	img_bk = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/bk.jpg',loading_files);
-	img_bk_fase_2 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/bk_fase_2.jpg',loading_files);
-	img_bk_fase_3 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/bk_fase_3_1.jpg',loading_files);
-	img_bk_fase_4 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/bk_fase_4.jpg',loading_files);
-
-	img_bk_menu = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/menu.jpg');
-	img_bk_intro_1 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/intro_1.jpg',loading_files);
-	img_bk_inst = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/b5.jpg',loading_files);
-	img_bk_credt = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/b7.jpg',loading_files);
-	img_bk_intro_2 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/intro_2.jpg',loading_files);
-	img_bk_intro_3 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/intro_3.jpg',loading_files);
-	img_bk_intro_4 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/intro_4.jpg',loading_files);
-	img_bk_intro_fase_3 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/intro_fase_3.jpg',loading_files);
-	img_bk_final = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/final.jpg',loading_files);
-	img_bk_perdeu = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/perdeu.jpg',loading_files);
-
-	img_m_r = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/m_red.png',loading_files);
-	img_m_b = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/m_black.png',loading_files);
-	img_pie = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/pie_of_apple.png',loading_files);
-	img_sound = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/icon_sound.png',loading_files); 
-	img_nosound = loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/icon_nosound.png',loading_files); 
+	img_bk = loadImage('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/img/bk.jpg',loading_files);
+	img_bk_fase_2 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/img/bk_fase_2.jpg',loading_files);
+	img_bk_fase_3 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/img/bk_fase_3_1.jpg',loading_files);
+	img_bk_fase_4 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/img/bk_fase_4.jpg',loading_files);
+	img_bk_menu = loadImage('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/img/menu.jpg',loading_files);
+	img_bk_intro_1 = loadImage('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/img/intro_1.jpg',loading_files);
+	img_bk_inst = loadImage('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/img/b5.jpg',loading_files);
+	img_bk_credt = loadImage('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/img/b7.jpg',loading_files);
+	img_bk_final = loadImage('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/img/final.jpg',loading_files);
+	img_bk_perdeu = loadImage('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/img/perdeu.jpg',loading_files);
 	
-	img_boneco_1=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_1.png',loading_files);
-	img_boneco_2=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_2.png',loading_files);
-	img_boneco_5=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_5.png',loading_files);
-	img_boneco_6=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_6.png',loading_files);
-	img_boneco_5_i=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_5_i.png',loading_files);
-	img_boneco_6_i=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_6_i.png',loading_files);
-	img_boneco_1_i=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_1_i.png',loading_files);
-	img_boneco_2_i=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/boneco_2_i.png',loading_files);
-	img_porf=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/prof.jpg',loading_files);
-	img_dev=loadImage('https://raw.githubusercontent.com/jjuniorssilva/teste_lop/master/dev.jpg',loading_files);
+	img_logo = loadImage('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/img/logo.png',loading_files);
+	img_m_r = loadImage('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/img/m_red.png',loading_files);
+	img_m_b = loadImage('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/img/m_black.png',loading_files);
+	img_pie = loadImage('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/img/pie_of_apple.png',loading_files);
+	img_sound = loadImage('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/img/icon_sound.png',loading_files); 
+	img_nosound = loadImage('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/img/icon_nosound.png',loading_files); 
+	
+	img_boneco_1=loadImage('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/img/boneco_1.png',loading_files);
+	img_boneco_2=loadImage('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/img/boneco_2.png',loading_files);
+	img_boneco_5=loadImage('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/img/boneco_5.png',loading_files);
+	img_boneco_6=loadImage('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/img/boneco_6.png',loading_files);
+	img_boneco_5_i=loadImage('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/img/boneco_5_i.png',loading_files);
+	img_boneco_6_i=loadImage('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/img/boneco_6_i.png',loading_files);
+	img_boneco_1_i=loadImage('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/img/boneco_1_i.png',loading_files);
+	img_boneco_2_i=loadImage('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/img/boneco_2_i.png',loading_files);
+	img_porf=loadImage('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/img/prof.jpg',loading_files);
+	img_dev=loadImage('https://raw.githubusercontent.com/jjuniorssilva/jogo_totas_do_chefe/master/img/dev.jpg',loading_files);
 
 	sound_fundo.setVolume(0.1);
 	sound_errou.setVolume(0.1);
@@ -83,6 +80,14 @@ function draw() {
 }
 
 //------------------------------------------- funções de manutenção da jogatina-------------------------------
+function loading_files(){
+	loading_file++;
+	//console.log("carregou "+parseInt(loading_file*(100/34))+"%");
+	if(loading_file>30){
+		//console.log("Todos carregados");
+		setTimeout(function() { fase=0; }, 1000);
+	}
+}
 function mouseClicked() {
 	if (fase == 0) {
 		if (fase_intro == 0) {
@@ -209,28 +214,28 @@ function mouseClicked() {
 			contagem_regreciva(1);
 		}
 	} else if (fase >= 7 && fase <= 9 && control_view_5 == 1 && status_cont==1) {
-		if ((mouseX > 640 && mouseX < (640 + 130)) && (mouseY > 280 && mouseY < 280 + 50)) {
-			numero_selecionado(valores_multiplicacao[0]);
-		} else if ((mouseX > 640 && mouseX < (640 + 130)) && (mouseY > 340 && mouseY < 340 + 50)) {
-			numero_selecionado(valores_multiplicacao[1]);
-		} else if ((mouseX > 640 && mouseX < (640 + 130)) && (mouseY > 400 && mouseY < 400 + 50)) {
-			numero_selecionado(valores_multiplicacao[2]);
-		} else if ((mouseX > 640 && mouseX < (640 + 130)) && (mouseY > 460 && mouseY < 460 + 50)) {
-			numero_selecionado(valores_multiplicacao[3]);
-		} else if ((mouseX > 640 && mouseX < (640 + 130)) && (mouseY > 520 && mouseY < 520 + 50)) {
-			numero_selecionado(valores_multiplicacao[4]);
+		if ((mouseX > 670 && mouseX < (670+150)) && (mouseY > 265 && mouseY < 265 + 50)) {
+			numero_selecionado(0);
+		} else if ((mouseX > 670 && mouseX < (670+150)) && (mouseY > 327.5 && mouseY < 327.5 + 50)) {
+			numero_selecionado(1);
+		} else if ((mouseX > 670 && mouseX < (670+150)) && (mouseY > 390 && mouseY < 390 + 50)) {
+			numero_selecionado(2);
+		} else if ((mouseX > 670 && mouseX < (670+150)) && (mouseY > 452.5 && mouseY < 452.5 + 50)) {
+			numero_selecionado(3);
+		} else if ((mouseX > 670 && mouseX < (670+150)) && (mouseY > 515 && mouseY < 515 + 50)) {
+			numero_selecionado(4);
 		}
 	} else if (fase >= 10 && fase <=12 && status_cont==1) {
 		if ((mouseX > 285 && mouseX < (285 + 110)) && (mouseY > 275 && mouseY < 275 + 125)) {
-			numero_selecionado(valores_divisao[0]);
+			numero_selecionado(0);
 		} else if ((mouseX > 420 && mouseX < (420 + 110)) && (mouseY > 275 && mouseY < 275 + 125)) {
-			numero_selecionado(valores_divisao[1]);
+			numero_selecionado(1);
 		} else if ((mouseX > 555 && mouseX < (555 + 110)) && (mouseY > 275 && mouseY < 275 + 125)) {
-			numero_selecionado(valores_divisao[2]);
+			numero_selecionado(2);
 		} else if ((mouseX > 690 && mouseX < (690 + 110)) && (mouseY > 275 && mouseY < 275 + 125)) {
-			numero_selecionado(valores_divisao[3]);
+			numero_selecionado(3);
 		} else if ((mouseX > 825 && mouseX < (825 + 110)) && (mouseY > 275 && mouseY < 275 + 125)) {
-			numero_selecionado(valores_divisao[4]);
+			numero_selecionado(4);
 		}	
 	}else if(fase==102 || fase ==101){
 		if ((mouseX > 450 && mouseX < (450 + 250)) && (mouseY > 350 && mouseY < 350 + 50)) {
@@ -251,7 +256,7 @@ function mouseClicked() {
 			status_sound_fundo=1;
 		}
 	}
-	if(fase!=102 && fase!=101){
+	if(fase!=102 && fase!=101 && fase>=0){
 		if((mouseX > 945 && mouseX < (995)) && (mouseY > 520 && mouseY < 555)) {
 			if(status_cont==1){
 				contagem_regreciva(2);
@@ -282,13 +287,13 @@ function numero_selecionado(posi) {
 			console.log("cheio");
 		}
 	} else if (fase >= 7 && fase <= 9) {
-		if (posi == (numero_objetivo / numero_de_tortas)) {
+		if (valores_multiplicacao[posi] == (numero_objetivo / numero_de_tortas)) {
 			next_fase();
 		} else {
 			perdeu_vida();
 		}
 	} else if (fase >= 10 && fase <= 12) {
-		if (posi == (numero_objetivo / dividendo)) {
+		if (valores_divisao[posi] == (numero_objetivo / dividendo)) {
 			next_fase();
 		} else {
 			perdeu_vida();
@@ -383,9 +388,9 @@ function recomeçar() {
 	contagem_regreciva(1);
 	if(fase==0){
 		for (let i = 0; i < valores_selecionados.length; i++) {
-			valores_selecionados[i]=0
+			valores_selecionados[i]=0;
 		}
-	}else if (fase >= 0 && fase <= 6) {
+	}else if (fase > 0 && fase <= 6) {
 		for (let index = 0; index < valores_selecionados.length; index++) {
 			if (valores_selecionados[index] != 0) {
 				for (let i = 0; i < num.length; i++) {
@@ -432,14 +437,7 @@ function perdeu_vida() {
 		recomeçar();
 	}
 }
-function loading_files(){
-	loading_file++;
-	//console.log("carregou "+parseInt(loading_file*(100/34))+"%");
-	if(loading_file>33){
-		//console.log("Todos carregados");
-		setTimeout(function() { fase=0; }, 1000);
-	}
-}
+
 //-------------------------------------------------------- bloco do layout do jogo ----------------//
 function gerar_layout() {
 	fill(255);
@@ -836,8 +834,6 @@ function gerar_layout() {
 				}
 				textSize(30);
 				rect(670, 265 + (index * 62.5), 150, 50);
-			}
-			for (let index = 0; index < 5; index++) {
 				fill(0);
 				text("x" + valores_multiplicacao[index], 720, 300 + (index * 62.5));
 			}
@@ -1025,8 +1021,7 @@ function gerar_layout() {
 		}
 		rect(945, 560 , 50, 35);
 		noStroke();
-		if(status_sound_fundo==0){
-				
+		if(status_sound_fundo==0){	
 			image(img_nosound, 955, 562, 30, 30);
 		}else{
 			image(img_sound, 955, 562, 30, 30);
@@ -1042,18 +1037,17 @@ function getRandomInt(min, max) {
 function verifica(numero) {
 	let verif = 0;
 	if (fase => 0 && fase <= 6) {
-		
-			for (var x = num.length - 1; x >= 0; x--) {
-				if (numero == num[x]) {
-					verif = 1;
-					break;
-				}
+		for (var x = num.length - 1; x >= 0; x--) {
+			if (numero == num[x]) {
+				verif = 1;
+				break;
 			}
-			if (verif != 0 ) {
-				return false;
-			} else {
-				return true;
-			}
+		}
+		if (verif != 0 ) {
+			return false;
+		} else {
+			return true;
+		}
 			
 	} else if (fase >= 7 && fase <= 9) {
 		for (var x = valores_multiplicacao.length - 1; x >= 0; x--) {
@@ -1086,9 +1080,9 @@ function gerar_numeros() {
 	if (fase >= 1 && fase <=6) {
 		
 		for (var i = 9; i >= 0; i--) {
-			let numero22 = getRandomInt(1, 30);
+			let numero22 = getRandomInt(1, 20);
 			while (verifica(numero22) == false) {
-				numero22 = getRandomInt(1, 30);
+				numero22 = getRandomInt(1, 20);
 			}
 			num[i] = numero22;
 		}	
