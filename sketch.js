@@ -1,6 +1,3 @@
-// Video explicativo: https://youtu.be/qr90P7CiTrs
-// Video do jogo:  https://youtu.be/Jl_1XNgUqQc
-
 let num = []
 let num_test = [6,10,2,3,4,5,1,7,9,8]
 let num_select_triple = []
