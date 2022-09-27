@@ -487,7 +487,7 @@ function gerar_layout() {
 				noStroke();
 				fill(0);
 				textSize(25);
-				text("Olá, esse jogo é totalmente educacional, sem fins\nlucrativos, espero que goste. Vamos lá!", 40, 100);
+				text("Olá, esse jogo é totalmente educacional, sem fins\nlucrativos, espero que goste. Vamos lá!?", 40, 100);
 				textSize(30);
 				text("Vamos lá!",750, 550)
 				stroke(0);
@@ -580,7 +580,7 @@ function gerar_layout() {
 				triangle(300, 180, 250, 250, 350, 180);
 				fill(0);
 				textSize(20);
-				text("Otimo! olhe a maça está aqui em baixo\nagora e ali no canto o numero vermeho\naumentou. Adicine maçâs até o numero\nficar igual.", 50, 90);
+				text("Otimo! olhe a maçã está aqui em baixo\nagora e ali no canto o numero vermeho\naumentou. Adicine maçãs até o número\nficar igual.", 50, 90);
 				noStroke();
 				if(fase_intro_etapa==1){
 					strokeWeight(4);
@@ -604,7 +604,7 @@ function gerar_layout() {
 				triangle(300, 180, 250, 250, 350, 180);
 				fill(0);
 				textSize(20);
-				text("Perceba que o número vermelho estar\nmaior que a meta, se isso acontecer voce\nperde uma vida, mas caso não tenha\npassado voce pode clicar em baixo e\nremover a maçã que achar melhor.", 50, 75);
+				text("Perceba que o número vermelho está\nmaior que a meta, se isso acontecer voce\nperde uma vida, mas caso não tenha\npassado voce pode clicar em baixo e\nremover a maçã que achar melhor.", 50, 75);
 				noStroke();
 				strokeWeight(4);
 				stroke(255, 204, 0);
@@ -679,7 +679,7 @@ function gerar_layout() {
 				triangle(300, 180, 250, 250, 350, 180);
 				fill(0);
 				textSize(20);
-				text("Agora é valendo!\nSe você achar difícil, pause o jogo e faça\nem um papel a continha!\nLembre-se que aqui você vai somar os\nnumeros das mançâs.", 50, 75);
+				text("Agora é valendo!\nSe você achar difícil, pause o jogo e faça\nem um papel a continha!\nLembre-se que aqui você vai somar os\nnúmeros das maçãs.", 50, 75);
 				noStroke();
 		}else if(vidas==2){
 				image(img_boneco_5, 0, 200, 230, 300);
@@ -759,7 +759,7 @@ function gerar_layout() {
 			triangle(800, 180, 700, 250, 700, 180);
 			fill(0);
 			textSize(20);
-			text("Você é fera nisso!\nSe você achar difícil, pause o jogo e faça\nem um papel a continha!\nLembre-se que aqui você vai subtrair os\nnumeros das mançâs.", 560, 105);
+			text("Você é fera nisso!\nSe você achar difícil, pause o jogo e faça\nem um papel a continha!\nLembre-se que aqui você vai subtrair os\nnumeros das maçãs.", 560, 105);
 			noStroke();
 		}else if(vidas==2){
 			image(img_boneco_5_i, 530, 220, 290, 380);
@@ -769,7 +769,7 @@ function gerar_layout() {
 			triangle(800, 180, 700, 250, 700, 180);
 			fill(0);
 			textSize(20);
-			text("Cuidado com o tempo!\nVocê tem mais duas vidas.\nLembre-se que aqui você vai subtrair os\nnumeros das mançâs", 580, 120);
+			text("Cuidado com o tempo!\nVocê tem mais duas vidas.\nLembre-se que aqui você vai subtrair os\nnumeros das maçãs", 580, 120);
 			noStroke();
 		}else{
 			image(img_boneco_6_i, 530, 220, 290, 380);
@@ -779,7 +779,7 @@ function gerar_layout() {
 			triangle(800, 180, 700, 250, 700, 180);
 			fill(0);
 			textSize(20);
-			text("Nossas vidas estão baixas!\nPause o jogo e tente fazer na folha de\npapel as contas!\nLembre-se que aqui você vai subtrair os\nnumeros das mançâs", 560, 105);
+			text("Nossas vidas estão baixas!\nPause o jogo e tente fazer na folha de\npapel as contas!\nLembre-se que aqui você vai subtrair os\nnumeros das maçãs", 560, 105);
 			noStroke();
 		}
 		image(img_pie, 800, 500, 120, 60)
@@ -806,7 +806,7 @@ function gerar_layout() {
 			triangle(310, 200, 280, 250, 360, 200);
 			textSize(25);
 			fill(0)
-			text("Você realmente tem o dom para a cozinha!\nAgora vamos usar minha maquinha secreta,\no multiplicador de tortas.", 120,120);		
+			text("Você realmente tem o dom para a cozinha!\nAgora vamos usar minha máquinha secreta,\no multiplicador de tortas.", 120,120);		
 			stroke(0);
 			strokeWeight(2);
 			if((mouseX>750 && mouseX<950) && (mouseY>520 && mouseY<520+75)){
