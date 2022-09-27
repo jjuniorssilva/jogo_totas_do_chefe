@@ -759,7 +759,7 @@ function gerar_layout() {
 			triangle(800, 180, 700, 250, 700, 180);
 			fill(0);
 			textSize(20);
-			text("Você é fera nisso!\nSe você achar difícil, pause o jogo e faça\nem um papel a continha!\nLembre-se que aqui você vai subtrair os\nnumeros das maçãs.", 560, 105);
+			text("Você é fera nisso!\nSe você achar difícil, pause o jogo e faça\nem um papel a continha!\nLembre-se que aqui você vai subtrair os\nnúmeros das maçãs.", 560, 105);
 			noStroke();
 		}else if(vidas==2){
 			image(img_boneco_5_i, 530, 220, 290, 380);
@@ -769,7 +769,7 @@ function gerar_layout() {
 			triangle(800, 180, 700, 250, 700, 180);
 			fill(0);
 			textSize(20);
-			text("Cuidado com o tempo!\nVocê tem mais duas vidas.\nLembre-se que aqui você vai subtrair os\nnumeros das maçãs", 580, 120);
+			text("Cuidado com o tempo!\nVocê tem mais duas vidas.\nLembre-se que aqui você vai subtrair os\nnúmeros das maçãs", 580, 120);
 			noStroke();
 		}else{
 			image(img_boneco_6_i, 530, 220, 290, 380);
@@ -779,7 +779,7 @@ function gerar_layout() {
 			triangle(800, 180, 700, 250, 700, 180);
 			fill(0);
 			textSize(20);
-			text("Nossas vidas estão baixas!\nPause o jogo e tente fazer na folha de\npapel as contas!\nLembre-se que aqui você vai subtrair os\nnumeros das maçãs", 560, 105);
+			text("Suas vidas estão baixas!\nPause o jogo e tente fazer na folha de\npapel as contas!\nLembre-se que aqui você vai subtrair os\nnúmeros das maçãs", 560, 105);
 			noStroke();
 		}
 		image(img_pie, 800, 500, 120, 60)
